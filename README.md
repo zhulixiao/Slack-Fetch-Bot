@@ -7,7 +7,7 @@ Slack Fetch Bot currently supports the following features:
 
 * Weather information: Get weather information for a specified location using the [OpenWeatherMap](https://openweathermap.org/api "Weather API") API.
 * Random quotes/facts: Get a random quote or fact using the [Quotable](https://github.com/lukePeavey/quotable "Quotable Github") API or the [uselessfacts](https://uselessfacts.jsph.pl/ "uselessfacts") API.
-* Random image of shibe: Get a random image of a Shiba Inu dog using the [shibe.online](https://shibe.online/ "shibe.online") API.
+* Random image of shiba inu: Get a random image of a Shiba Inu dog using the [shibe.online](https://shibe.online/ "shibe.online") API.
 
 # Requirements
 To run this project, you will need:
