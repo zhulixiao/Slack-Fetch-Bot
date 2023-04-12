@@ -8,7 +8,14 @@ Slack Fetch Bot currently supports the following features:
 * Weather information: Get weather information for a specified location using the [OpenWeatherMap](https://openweathermap.org/api "Weather API") API.
 * Random quotes/facts: Get a random quote or fact using the [Quotable](https://github.com/lukePeavey/quotable "Quotable Github") API or the [uselessfacts](https://uselessfacts.jsph.pl/ "uselessfacts") API.
 * Random image of shiba inu: Get a random image of a Shiba Inu using the [shibe.online](https://shibe.online/ "shibe.online") API.
-* (Work in progress) Retrieve and store conversation history from Slack based on a given schedule
+* Retrieve and store conversation history from Slack based on a given schedule to a JSON file.
+
+
+
+# Conversation History Retrieval
+> **Note:** Before requesting the bot to get conversation history, you need to make sure that the bot has been added to the specific channel you want to retrieve the history from. 
+
+The bot can retrieve and store conversation history from Slack based on a given schedule to a JSON file or on request. You are welcome to modify the output format by modifying the `save_history::save_conversation_history()` function. The Slack API endpoint used for this feature is `conversations.history`. More information on this API endpoint can be found in the [official Slack API documentation](https://api.slack.com/methods/conversations.history).
 
 # Requirements
 To run this project, you will need:
@@ -45,11 +52,19 @@ To install Slack Fetch Bot, follow these steps:
 
 1. Create a new Slack app and bot user on your Slack workspace.
 2. Modify your bot's OAuth token in **fetch_bot.py** : `SLACK_APP_TOKEN=your_app_token (xapp-)` and `SLACK_BOT_TOKEN=your_bot_token (xoxb-)`. Optional: You will also need a key to use the Weather API from OpenWeatherMap.
-3. (Optional) In order to schedule messages to be sent to a specific Slack channel, you will need [to obtain the channel's ID from Slack](https://feedly.helpscoutdocs.com/article/648-how-to-find-slack-channel-id#:~:text=To%20find%20channel%20ID%20in%20Slack%3A&text=Open%20your%20web%20browser%20and,represents%20your%20Slack%20Channel%20ID.) and add it to the relevant section of the **fetch_bot.py** file.
+3. (Optional) The **fetch_bot.py** file includes a commented section in the main class that allows you to schedule messages to be sent to a specific Slack channel. To use this feature, simply uncomment the relevant code and edit it according to your needs.
 4. "Customize the bot's functionality by modifying the **fetch_bot.py** file to suit your needs. Don't be afraid to get creative!
 
 # Usage
-To start the bot, run the following command:
+To start the bot, export the following environment variables with your corresponding values:
+
+```bash
+export SLACK_BOT_TOKEN=your_slack_bot_token
+export SLACK_APP_TOKEN=your_slack_app_token
+export WEATHER_API_KEY=your_weather_api_key
+```
+
+Then run the following command:
 
 ```bash
 python3 fetch_bot.py
@@ -74,6 +89,7 @@ Once the bot is running, it will listen for events on your Slack workspace and r
 Once you have set up the **fetch_bot.py** file and have configured the Slack bot, you can use the bot to fetch information and send it to your Slack channel. 
 
 ![example image](./examples/fetch_bot_showcase.jpg)
+
 
 # Contributing
 If you'd like to contribute to Slack Fetch Bot, feel free to submit a pull request or open an issue.
