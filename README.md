@@ -88,7 +88,8 @@ Once the bot is running, it will listen for events on your Slack workspace and r
 # Example
 Once you have set up the **fetch_bot.py** file and have configured the Slack bot, you can use the bot to fetch information and send it to your Slack channel. 
 
-![example image](./examples/fetch_bot_showcase.jpg)
+![example1 image](./examples/example1.jpg)
+![example2 image](./examples/example2.jpg)
 
 
 # Contributing
