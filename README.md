@@ -8,7 +8,7 @@ Slack Fetch Bot currently supports the following features:
 * Weather information: Get weather information for a specified location using the [OpenWeatherMap](https://openweathermap.org/api "Weather API") API.
 * Random quotes/facts: Get a random quote or fact using the [Quotable](https://github.com/lukePeavey/quotable "Quotable Github") API or the [uselessfacts](https://uselessfacts.jsph.pl/ "uselessfacts") API.
 * Random image of shiba inu: Get a random image of a Shiba Inu using the [shibe.online](https://shibe.online/ "shibe.online") API.
-* Retrieve and store conversation history from Slack based on a given schedule to a JSON file.
+* Retrieve and store conversation history from Slack based on a given schedule to a JSON file or on request.
 
 
 
@@ -88,8 +88,7 @@ Once the bot is running, it will listen for events on your Slack workspace and r
 # Example
 Once you have set up the **fetch_bot.py** file and have configured the Slack bot, you can use the bot to fetch information and send it to your Slack channel. 
 
-![example1 image](./examples/example1.jpg)
-![example2 image](./examples/example2.jpg)
+![example image](./examples/example.jpg) 
 
 
 # Contributing
