@@ -1,8 +1,7 @@
 import json
-import os
 from datetime import datetime
 
-import requests
+from src.commons import download_file
 
 def format_json_to_html(*json_files, most_recent_first=True, download_img=True):
     # read the json files and append the data to a list
@@ -39,25 +38,12 @@ def format_json_to_html(*json_files, most_recent_first=True, download_img=True):
                     if token.startswith("https") and (token.endswith(".jpg") or token.endswith(".png")):
                         is_img = True
                         img_name = token.strip().split("/")[-1]
-                        print("Saving image: " + img_name)
-                        download_image(token, img_name)
-                        f.write("<img src='images/{}' width=300 />".format(img_name))
-
+                        download_file(token, img_name)
+                        # find the image from conversation_history folder with width 300
+                        f.write("<img src='downloaded_files/{}' width='300'>".format(img_name))
+                        
             # write the message text
             if not is_img:
                 f.write("<p style='{}'>{}</p>".format(message_style, msg["message"]
                                                       .replace("<", "&lt;").replace(">", "&gt;").replace("\n", "<br>")))
 
-
-def download_image(url, image_name):
-    headers = {'Authorization': 'Bearer ' + os.environ["SLACK_BOT_TOKEN"]}
-    r = requests.get(url, headers=headers)
-
-    with open("images/" + image_name, 'wb') as img:
-        for chunk in r.iter_content(chunk_size=1024):
-            if chunk:
-                img.write(chunk)
-
-
-if __name__ == '__main__':
-    format_json_to_html("random_2023_04_11.json", most_recent_first=False)

@@ -2,8 +2,8 @@ import os
 import datetime
 import time
 import json
-import requests
-from src.commons import send_to_slack
+from src.format_json import format_json_to_html
+from src.commons import download_file, send_to_slack
 
 
 # Save the conversation history
@@ -14,14 +14,13 @@ def save_conversation_history(client, channel_id):
     # 1 week in seconds = 604800
     # 2 weeks in seconds = 1209600
     # 1 month in seconds = 2592000
-    x_weeks_ago = int(time.time()) - 1209600
+    x_weeks_ago = int(time.time()) - 2592000
     # get the conversation history
     response = client.conversations_history(channel=channel_id, limit=1000, oldest=x_weeks_ago, inclusive="true")
     # get the messages
     messages = response["messages"]
-    # get the current time
-    current_time = datetime.datetime.strptime(time.ctime(), "%a %b %d %H:%M:%S %Y")
-    
+    # get the current date as year-month-day
+    current_time = datetime.datetime.now().strftime("%Y-%m-%d")
     # get channel name from channel id
     response_channel = client.conversations_info(channel=channel_id)
 
@@ -36,6 +35,12 @@ def save_conversation_history(client, channel_id):
         # create the folder
         os.makedirs("conversation_history")
 
+    # under the folder, create a downloaded_files folder
+    # if the folder does not exist
+    if not os.path.exists("conversation_history/downloaded_files"):
+        # create the folder
+        os.makedirs("conversation_history/downloaded_files")
+
     # get the full path of the file
     filename = os.path.join("conversation_history", filename)
 
@@ -48,10 +53,10 @@ def save_conversation_history(client, channel_id):
         for message in messages:
             # get the ts
             ts = message["ts"]
-            # convert the ts to a readable time format
+            # convert the ts to a readable time format to
             readable_time = datetime.datetime.fromtimestamp(float(ts)).strftime('%Y-%m-%d %H:%M:%S')
-            # get the user
             
+            # get the user
             # if user is missing, skip the message
             if "user" not in message:
                 continue
@@ -64,7 +69,7 @@ def save_conversation_history(client, channel_id):
             message_text = ""
             # if the message contains a file
             # get the name + the url of the file
-            # url_private_download
+            # then download the file
             if "files" in message:
                 # get the files
                 files = message["files"]
@@ -74,7 +79,6 @@ def save_conversation_history(client, channel_id):
                     file_name = file["name"]
                     # get the file url
                     file_url = file["url_private_download"]
-                    # download the file
                     download_file(file_url, file_name)
                     # add the file name + the file url to the message
                     message_text += f"{file_name} : {file_url} \n"
@@ -99,37 +103,8 @@ def save_conversation_history(client, channel_id):
     # close the file
     outfile.close()
 
+    format_json_to_html(filename)
+
     # send a message to the channel to notify that the conversation history has been saved
     # with timestamp
     send_to_slack(client, channel_id, f"Conversation history has been saved at {str(current_time)}")
-
-
-# download the file by url
-# url: the url of the file
-# filename: the name of the file
-def download_file(url, filename):
-    # add an auth token to the url
-    # Authorization: Bearer xoxb-***
-    headers = {"Authorization": "Bearer " + os.environ["SLACK_BOT_TOKEN"]}
-    # get the file
-    response = requests.get(url, headers=headers)
-    
-
-    # if response is not ok
-    if not response.ok:
-        # print the error
-        print(response)
-        # return
-        return
-    
-    # if the folder does not exist
-    if not os.path.exists("conversation_history"):
-        # create the folder
-        os.makedirs("conversation_history")
-        
-    # get the full path of the file
-    filename = os.path.join("conversation_history", filename)
-    # create a new file
-    with open(filename, 'wb') as f:
-        # write the file
-        f.write(response.content)

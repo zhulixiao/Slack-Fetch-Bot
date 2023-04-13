@@ -1,6 +1,6 @@
 # Slack Fetch Bot
 
-Slack Fetch Bot is a lightweight and easy-to-use Python bot that fetches information from different APIs and sends them as Slack messages. It can be used to schedule messages to send at a specific time or when people mention the bot in a channel.
+Slack Fetch Bot is a versatile Python bot that can fetch information from different APIs and send them as Slack messages, or save conversation history from a Slack channel to a JSON file. It also includes a feature to convert the JSON file to an HTML file, which can be viewed in any browser and includes all downloaded image files. The bot supports scheduled messages, and can be customized by modifying the `fetch_bot.py` file. Before using the conversation history feature, be sure to add the bot to the desired Slack channel. Additionally, environment variables for the Slack Bot Token, Slack App Token, and OpenWeatherMap API key should be exported. See the `README.md` file for more information.
 
 # Features
 Slack Fetch Bot currently supports the following features:
@@ -8,7 +8,8 @@ Slack Fetch Bot currently supports the following features:
 * Weather information: Get weather information for a specified location using the [OpenWeatherMap](https://openweathermap.org/api "Weather API") API.
 * Random quotes/facts: Get a random quote or fact using the [Quotable](https://github.com/lukePeavey/quotable "Quotable Github") API or the [uselessfacts](https://uselessfacts.jsph.pl/ "uselessfacts") API.
 * Random image of shiba inu: Get a random image of a Shiba Inu using the [shibe.online](https://shibe.online/ "shibe.online") API.
-* Retrieve and store conversation history from Slack based on a given schedule to a JSON file or on request.
+* Retrieve and store conversation history with auto-downloaded image files from Slack based on a given schedule to a JSON file or on request.
+* Convert conversation history JSON files to ***HTML format***, which supports for all major browsers
 
 
 
