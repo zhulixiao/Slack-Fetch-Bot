@@ -88,7 +88,7 @@ def message(body):
 def run_schedule_weather(time_string, channel_name):
     channel_id = find_channel_id(client, channel_name)
     # every day at time_string
-    schedule.every().day.at(time_string).do(job_weather, channel_id, "Mont-Royal")
+    schedule.every().day.at(time_string).do(job_weather, client, channel_id, "Mont-Royal")
     while True:
         schedule.run_pending()
         time.sleep(1)
@@ -98,7 +98,7 @@ def run_schedule_weather(time_string, channel_name):
 def run_schedule_history(time_string, channel_name):
     channel_id = find_channel_id(client, channel_name)
     # every Monday at time_string
-    schedule.every().monday.at(time_string).do(save_conversation_history, channel_id)
+    schedule.every().monday.at(time_string).do(save_conversation_history, client, channel_id)
 
     while True:
         schedule.run_pending()
