@@ -1,6 +1,6 @@
 # Slack Fetch Bot
 
-Slack Fetch Bot is a Python-based chatbot that can fetch information from various APIs and send them as Slack messages. It can be used to schedule messages, save conversation history, and monitor subreddits for new posts. In addition, the bot can communicate with users via direct messages using NewBing, with the support of EdgeGPT. With the ability to download images and present them in an HTML format, the bot provides a versatile and user-friendly way to keep up-to-date with various sources of information. See the `README.md` file for more information.
+Slack Fetch Bot is a Python-based chatbot that can fetch information from various APIs and send them as Slack messages. It can be used to schedule messages, save conversation history, and monitor subreddits for new posts. In addition, the bot can communicate with users via direct messages using the new Bing, with the support of EdgeGPT. With the ability to download images and present them in an HTML format, the bot provides a versatile and user-friendly way to keep up-to-date with various sources of information. See the `README.md` file for more information.
 
 # Features
 Slack Fetch Bot currently supports the following features:
