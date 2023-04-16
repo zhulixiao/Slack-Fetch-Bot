@@ -14,7 +14,7 @@ def save_conversation_history(client, channel_id):
     # 1 week in seconds = 604800
     # 2 weeks in seconds = 1209600
     # 1 month in seconds = 2592000
-    x_weeks_ago = int(time.time()) - 2592000
+    x_weeks_ago = int(time.time()) - 604800
     # get the conversation history
     response = client.conversations_history(channel=channel_id, limit=1000, oldest=x_weeks_ago, inclusive="true")
     # get the messages
@@ -103,7 +103,7 @@ def save_conversation_history(client, channel_id):
     # close the file
     outfile.close()
 
-    format_json_to_html(filename)
+    format_json_to_html(filename, most_recent_first=False)
 
     # send a message to the channel to notify that the conversation history has been saved
     # with timestamp

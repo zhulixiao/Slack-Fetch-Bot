@@ -22,8 +22,31 @@ def find_channel_id(client, channel_name):
 def send_to_slack(client, channel_id, message):
     try:
         response = client.chat_postMessage(channel=channel_id, text=message)
+        # return the timestamp of the message
+        return response["ts"]
     except SlackApiError as e:
         print(f"Error sending message: {e}")
+
+
+# Send a message to Slack in a thread
+def send_to_slack_thread(client, channel_id, message, thread_ts):
+    try:
+        response = client.chat_postMessage(channel=channel_id, text=message, thread_ts=thread_ts)
+        # return the timestamp of the message
+        return response["ts"]
+    except SlackApiError as e:
+        print(f"Error sending message: {e}")
+
+# delete a message sent by the bot
+# client: the Slack client
+# channel_id: the channel to delete the message from
+# ts: the timestamp of the message
+def delete_message(client, channel_id, ts):
+    try:
+        response = client.chat_delete(channel=channel_id, ts=ts)
+    except SlackApiError as e:
+        print(f"Error deleting message: {e}")
+
 
 
 # download the file by url
