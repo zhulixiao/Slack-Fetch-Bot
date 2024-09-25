@@ -34,7 +34,7 @@ Next, ensure that you have an account that can be used to chat with the new Bing
 You can install these dependencies using pip with the following command:
 
 ```bash
-pip install -r requirement.txt
+pip install -r requirements.txt
 ```
 *To avoid any potential conflicts with other Python packages, it is strongly recommended to run this command within a virtual environment specific to your project.*
 
